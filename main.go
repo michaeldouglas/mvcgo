@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func main() {
-	print("OI")
+	fmt.Println("Alterado com sucesso!")
 }
