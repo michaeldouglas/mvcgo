@@ -1,1 +1,13 @@
 mvcgo
+*.exe
+*.test
+*.prof
+*.out
+/bin/
+/pkg/
+/go.mod
+/go.sum
+*.log
+.idea/
+.vscode/
+data/

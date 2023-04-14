@@ -1,0 +1,14 @@
+version: '3.8' # Versão do Docker Compose
+services:
+  database:
+    image: ${DATABASE_IMAGE} # Imagem do banco de dados
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${DATABASE} # Banco de dados
+      MYSQL_USER: ${DATABASE_USER} # Usuário do banco de dados
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD} # Senha do banco de dados
+      MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD} # Senha root do banco de dados
+    ports:
+      - ${DATABASE_PORT} # Portal local e porta do docker
+    volumes:
+      - ./data:/var/lib/mysql
