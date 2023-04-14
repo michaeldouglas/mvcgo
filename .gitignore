@@ -5,8 +5,6 @@ mvcgo
 *.out
 /bin/
 /pkg/
-/go.mod
-/go.sum
 *.log
 .idea/
 .vscode/
