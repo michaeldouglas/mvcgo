@@ -9,3 +9,4 @@ mvcgo
 .idea/
 .vscode/
 data/
+.env
