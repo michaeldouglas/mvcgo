@@ -1,6 +1,6 @@
 version: '3.8' # Versão do Docker Compose
 services:
-  database:
+  mysql:
     image: ${DATABASE_IMAGE} # Imagem do banco de dados
     restart: always
     environment:
@@ -12,3 +12,23 @@ services:
       - ${DATABASE_PORT} # Portal local e porta do docker
     volumes:
       - ./data:/var/lib/mysql
+  prometheus:
+    image: prom/prometheus:latest
+    restart: always
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+  grafana:
+    image: grafana/grafana:latest
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+volumes:
+  data:
+  grafana_data:
