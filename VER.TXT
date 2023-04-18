@@ -1,0 +1,2 @@
+https://grafana.com/grafana/dashboards/7362-mysql-overview/
+https://www.youtube.com/watch?v=q2C1K69pRBY
