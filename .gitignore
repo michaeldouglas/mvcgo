@@ -10,3 +10,4 @@ mvcgo
 .vscode/
 data/
 .env
+grafana_data/

@@ -1,8 +1,8 @@
 version: '3.8' # Versão do Docker Compose
 services:
-  db:
+  database:
     image: ${DATABASE_IMAGE} # Imagem do banco de dados
-    container_name: mysql-db
+    container_name: ${DATABASE_CONTAINER_NAME} # Nome do container
     restart: always
     environment:
       MYSQL_DATABASE: ${DATABASE} # Banco de dados
@@ -14,37 +14,37 @@ services:
     volumes:
       - ./data:/var/lib/mysql
   prometheus:
-    image: prom/prometheus:latest
-    container_name: prometheus
+    image: ${PROMETHEUS_IMAGE} # Imagem do Prometheus
+    container_name: ${PROMETHEUS_CONTAINER_NAME} # Nome do container
     restart: always
     ports:
-      - "9090:9090"
+      - ${PROMETHEUS_PORT} # Portal local e porta do docker
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
   grafana:
-    image: grafana/grafana:latest
-    container_name: grafana
+    image: ${GRAFANA_IMAGE} # Imagem do grafana
+    container_name: ${GRAFANA_CONTAINER_NAME} # Nome do container
     restart: always
     ports:
-      - "3000:3000"
+      - ${GRAFANA_PORT} # Porta do grafana
     environment:
-      GF_SECURITY_ADMIN_USER: admin
-      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER} # Usuario do grafana
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD} # Senha do grafana
     volumes:
-      - grafana_data:/var/lib/grafana
+      - ./grafana_data:/var/lib/grafana
   mysql_exporter:
-    image: prom/mysqld-exporter:latest
-    container_name: mysql-exporter
+    image: ${DATABASE_MYSQL_EXPORTER_IMAGE} # Imagem do Mysql Exporter
+    container_name: ${DATABASE_MYSQL_EXPORTER_CONTAINER_NAME} # Nome do container
     restart: always
     environment:
-      DATA_SOURCE_NAME: "root:go_root_pass@(db:3306)/go_db?tls=false&parseTime=true"
+      DATA_SOURCE_NAME: "${DATABASE_USER_ROOT}:${DATABASE_ROOT_PASSWORD}@(database:3306)/${DATABASE}?tls=false&parseTime=true"
       MYSQLD_EXPORTER_DISABLE_DEFAULT_METRICS: "false"
       MYSQLD_EXPORTER_SKIP_METRICS: "mysql_slave_.*,mysql_handler_*"
       EXTRA_OPTS: "--collect.perf_schema.cpu.eventsstatements=true --collect.perf_schema.memory.eventsstatements=true"
     ports:
-      - 9104:9104
+      - ${DATABASE_MYSQL_EXPORTER_PORT} # Portal do mysql exporter
     depends_on:
-      - db
+      - database
 volumes:
   grafana_data:
   prometheus_data:
