@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/michaeldouglas/mvcgo/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -24,4 +25,8 @@ func Connection() {
 	if err != nil {
 		fmt.Println("Falha ao conectar no banco de dados")
 	}
+}
+
+func SyncDB() {
+	DB.AutoMigrate(&models.Hello{})
 }

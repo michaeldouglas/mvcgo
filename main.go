@@ -12,19 +12,21 @@ import (
 func init() {
 	initializers.LoadEnv()
 	initializers.Connection()
+	initializers.SyncDB()
 }
 
 func main() {
 	args := os.Args[1:]
 
 	if len(args) > 0 {
-		commands.Run()
+		commands.Run(args)
 	} else {
 		// Configuração do Fiber
 		app := fiber.New()
 		// Nossas Rotas
 		app.Get("/", controllers.HelloIndex)
 		app.Get("/json", controllers.HelloJson)
+		app.Get("/teste", controllers.Teste)
 
 		// Inicia nossa aplicação
 		app.Listen(":" + os.Getenv("WEB_PORT"))
