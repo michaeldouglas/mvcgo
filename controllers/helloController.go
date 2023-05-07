@@ -5,7 +5,9 @@ import (
 )
 
 func HelloIndex(c *fiber.Ctx) error {
-	return c.SendString("Hello, World!")
+	return c.Render("hello/index", fiber.Map{
+		"message": "Hello, World!",
+	})
 }
 
 func HelloJson(c *fiber.Ctx) error {

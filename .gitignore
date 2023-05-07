@@ -11,3 +11,5 @@ mvcgo
 data/
 .env
 grafana_data/
+node_modules/
+public/dist
